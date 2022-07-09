@@ -36,11 +36,8 @@ function App() {
                 return previousNumber >= 0 ? previousNumber : currentNumber;
             });
             e.preventDefault();
-        } else if (e.code === "ArrowUp") {
-            setShowHint(false);
-            e.preventDefault();
-        } else if (e.code === "ArrowDown") {
-            setShowHint(true);
+        } else if (["ArrowUp", "ArrowDown"].includes(e.code)) {
+            setShowHint(currentHint => !currentHint);
             e.preventDefault();
         }
     }, [])
