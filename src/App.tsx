@@ -4,7 +4,6 @@ import codes from "./CountryCodes.json"
 
 interface Code {
     name: string,
-    dial_code: string,
     code: string
 }
 
