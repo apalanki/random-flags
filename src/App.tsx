@@ -7,7 +7,7 @@ interface Code {
     code: string
 }
 
-const FLAG_ENDPOINT = "https://countryflagsapi.com/SVG/";
+const FLAG_ENDPOINT = "https://countryflagsapi.com/SVG";
 
 const shuffledCodes: Code[] = (codes as Code[])
     .map(value => ({value, sort: Math.random()}))
@@ -17,7 +17,6 @@ const shuffledCodes: Code[] = (codes as Code[])
 function App() {
     const [number, setNumber] = useState<number>(0);
     const [showHint, setShowHint] = useState<boolean>(false);
-
     const selectedState = shuffledCodes[number];
 
     useEffect(() => {
@@ -57,7 +56,7 @@ function App() {
         <div className="App" onKeyDown={handleKeyDown}>
             <header className="App-header">
                 {showHint ?<p>{selectedState.name}</p>: null}
-                <img src={`${FLAG_ENDPOINT}${selectedState.code}`} className="App-logo" alt="logo"/>
+                <img src={`${FLAG_ENDPOINT}/${selectedState.code}`} className="App-logo" alt="country flag"/>
                 {showHint ? <p>{selectedState.code} ( {number + 1} of {codes.length} )</p> : null}
             </header>
         </div>
