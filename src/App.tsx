@@ -8,7 +8,7 @@ interface Code {
     code: string
 }
 
-const FLAG_ENDPOINT = "https://countryflagsapi.com/PNG/";
+const FLAG_ENDPOINT = "https://countryflagsapi.com/SVG/";
 
 const shuffledCodes = codes
     .map(value => ({value, sort: Math.random()}))
