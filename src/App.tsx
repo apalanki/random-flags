@@ -10,11 +10,10 @@ interface Code {
 
 const FLAG_ENDPOINT = "https://countryflagsapi.com/SVG/";
 
-const shuffledCodes = codes
+const shuffledCodes: Code[] = (codes as Code[])
     .map(value => ({value, sort: Math.random()}))
     .sort((a, b) => a.sort - b.sort)
     .map(({value}) => value)
-
 
 function App() {
     const [number, setNumber] = useState<number>(0);
@@ -58,13 +57,9 @@ function App() {
     return (
         <div className="App" onKeyDown={handleKeyDown}>
             <header className="App-header">
-                {showHint ? <div>
-                    <p>{selectedState.name}</p>
-                </div> : null}
+                {showHint ?<p>{selectedState.name}</p>: null}
                 <img src={`${FLAG_ENDPOINT}${selectedState.code}`} className="App-logo" alt="logo"/>
-                {showHint ? <div>
-                    <p>{selectedState.code} ( {number + 1} of {codes.length} )</p>
-                </div> : null}
+                {showHint ? <p>{selectedState.code} ( {number + 1} of {codes.length} )</p> : null}
             </header>
         </div>
     );
