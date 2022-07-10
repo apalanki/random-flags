@@ -13,8 +13,6 @@ function App() {
                 <Route path="elements" element={<PeriodicElements/>}/>
                 <Route path="flags" element={<Flags/>}/>
             </Routes>
-            <Link to="/elements">Elements</Link>
-            <Link to="/flags">Flags</Link>
         </div>
     );
 }
