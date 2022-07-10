@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import {useSwipeable} from "react-swipeable";
 
 interface Element {
     name: string,
@@ -18,10 +19,23 @@ const shuffledElements: Element[] = (elements.elements as Element[])
     .sort((a, b) => a.sort - b.sort)
     .map(({value}) => value)
 
-function App() {
+function PeriodicElements() {
     const [number, setNumber] = useState<number>(0);
     const [showHint, setShowHint] = useState<boolean>(true);
     const selectedElement = shuffledElements[number];
+
+    const handlers = useSwipeable({
+        onSwipedLeft: () => setNumber((currentNumber) => {
+            const previousNumber = currentNumber - 1;
+            return previousNumber >= 0 ? previousNumber : currentNumber;
+        }),
+        onSwipedRight: () => setNumber((currentNumber) => {
+            const nextNumber = currentNumber + 1;
+            return nextNumber < shuffledElements.length ? nextNumber : currentNumber;
+        }),
+        onSwipedUp: () =>  setShowHint(currentHint => !currentHint),
+        onSwipedDown: () =>  setShowHint(currentHint => !currentHint)
+    });
 
     useEffect(() => {
         setShowHint(false);
@@ -46,6 +60,15 @@ function App() {
         }
     }, [])
 
+    const myRef = React.useRef();
+    const refPassThrough = (el: any) => {
+        // call useSwipeable ref prop with el
+        handlers.ref(el);
+
+        // set myRef el so you can access it yourself
+        myRef.current = el;
+    }
+
     useEffect(() => {
         window.addEventListener("keydown", handleKeyDown);
         return () => {
@@ -54,7 +77,7 @@ function App() {
     }, [handleKeyDown]);
 
     return (
-        <div className="App" onKeyDown={handleKeyDown}>
+        <div className="App" onKeyDown={handleKeyDown} ref={refPassThrough}>
             <header className="App-header">
                 {showHint ? <Box sx={{minWidth: 275}} style={{padding: "40px"}}><Card>
                     <CardContent>
@@ -78,4 +101,4 @@ function App() {
     );
 }
 
-export default App;
+export default PeriodicElements;
