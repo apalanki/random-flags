@@ -8,7 +8,11 @@ interface Code {
     code: string
 }
 
-const FLAG_ENDPOINT = "https://countryflagsapi.com/SVG";
+const FLAG_ENDPOINT = "https://flagcdn.com";
+/**
+ * Available Sizes: 20, 40, 80, 160, 320, 640, 1280, 2560
+ */
+const SIZE = 320;
 
 const shuffledCodes: Code[] = (codes as Code[])
     .map(value => ({value, sort: Math.random()}))
@@ -76,7 +80,10 @@ function Flags() {
         <div className="App" onKeyDown={handleKeyDown} ref={refPassThrough}>
             <header className="App-header">
                 {showHint ? <p>{selectedState.name}</p> : null}
-                <img src={`${FLAG_ENDPOINT}/${selectedState.code}`} className="App-logo" alt="country flag"/>
+                <img src={`${FLAG_ENDPOINT}/w${SIZE}/${selectedState.code.toLowerCase()}.png`}
+                     srcSet={`${FLAG_ENDPOINT}/w${2*SIZE}/${selectedState.code.toLowerCase()}.png 2x`}
+                     width={SIZE}
+                     className="App-logo" alt={selectedState.name}/>
                 {showHint ? <p>{selectedState.code} ( {number + 1} of {codes.length} )</p> : null}
             </header>
         </div>
